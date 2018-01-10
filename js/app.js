@@ -5,6 +5,7 @@
     var teclasNumericas = [document.getElementById('0'), document.getElementById('1'), document.getElementById('2'), document.getElementById('3'), document.getElementById('4'), document.getElementById('5'), document.getElementById('6'), document.getElementById('7'), document.getElementById('8'), document.getElementById('9')];
     var teclaOn = document.getElementById('on');
     var teclaPunto = document.getElementById('punto');
+    var teclaSigno = document.getElementById('sign');
 
   // mostrar graficamente la presion en las teclas
     var apretarSoltarTeclas = ( function (){
@@ -15,7 +16,6 @@
           this.setAttribute('style', 'transform: scale(1,1)');}
       }
     })();
-
   // mostrar los numeros presionados en la pantalla de la calculadora sin superar las 8 cifras y sin empezar con cero(s)
     var displayNumeros = ( function (){
         for (var i = 0; i < teclasNumericas.length; i++) {
@@ -28,7 +28,6 @@
           };
         }
       })();
-
   // al presionar la tecla ON se borra el contenido de la pantalla y queda en cero
     var limpiarPantalla = (function (){
       teclaOn.onclick = function (){
@@ -36,14 +35,24 @@
         };
       })();
   // colocar un unico separador decimal
-    var separadorDecimal = (function (){
+   var separadorDecimal = (function (){
       teclaPunto.onclick = function (){
-        
-        };
+        if (pantalla.innerHTML.indexOf(".") == -1) {
+          pantalla.innerHTML += '.';
+          };
+        }
       })();
-  //
-    var displayNumeros = (function (){
-
+  // asignar signo positivo o negativo siempre y cuando no haya un cero en la pantalla
+    var signo = (function (){
+      teclaSigno.onclick = function () {
+        if (pantalla.innerHTML != '0') {
+          if (pantalla.innerHTML.charAt(0) == '-') {
+            pantalla.innerHTML = pantalla.innerHTML.slice(1);
+          } else {
+            pantalla.innerHTML = '-' + pantalla.innerHTML;
+          }
+        }
+      };
       })();
   //
     var displayNumeros = (function (){
