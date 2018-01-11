@@ -6,6 +6,15 @@
     var teclaOn = document.getElementById('on');
     var teclaPunto = document.getElementById('punto');
     var teclaSigno = document.getElementById('sign');
+    var teclasOperadoras = [document.getElementById('mas'), document.getElementById('menos'), document.getElementById('por'), document.getElementById('dividido')];
+    var teclaSuma = document.getElementById('mas');
+    var teclaResta = document.getElementById('menos');
+    var teclaMultiplica = document.getElementById('por');
+    var teclaDivide = document.getElementById('dividido');
+    var teclaIgual = document.getElementById('igual');
+    var num1 = null;
+    var num2 = null;
+    var resultado = null;
 
   // mostrar graficamente la presion en las teclas
     var apretarSoltarTeclas = ( function (){
@@ -44,29 +53,51 @@
       })();
   // asignar signo positivo o negativo siempre y cuando no haya un cero en la pantalla
     var signo = (function (){
-      teclaSigno.onclick = function () {
-        if (pantalla.innerHTML != '0') {
-          if (pantalla.innerHTML.charAt(0) == '-') {
-            pantalla.innerHTML = pantalla.innerHTML.slice(1);
-          } else {
-            pantalla.innerHTML = '-' + pantalla.innerHTML;
+        teclaSigno.onclick = function () {
+          if (pantalla.innerHTML != '0') {
+            if (pantalla.innerHTML.charAt(0) == '-') {
+              pantalla.innerHTML = pantalla.innerHTML.slice(1);
+            } else {
+              pantalla.innerHTML = '-' + pantalla.innerHTML;
+            }
           }
-        }
+        };
+        })();
+
+    var operaciones = (function (){
+      function sumar(num1, num2){
+        return num1 + num2;
       };
-      })();
-  //
-    var displayNumeros = (function (){
-
-      })();
-  //
-    var displayNumeros = (function (){
-
-      })();
-
-
-
-
-
-
-
+      function restar(num1, num2){
+        return num1 - num2;
+      };
+      function multiplicar(num1, num2){
+        return num1 * num2;
+      };
+      function dividir(num1, num2){
+        return num1 / num2;
+      };
+      for (var i = 0; i < teclasOperadoras.length; i++) {
+        teclasOperadoras[i].onclick = function captarNumero(){
+          var self = this;
+          if (num1==undefined) {
+             num1 =  Number(pantalla.innerHTML);
+          }
+        pantalla.innerHTML = '';
+        teclaIgual.onclick = function mostrarResultado(){
+          num2 = Number(pantalla.innerHTML);
+          if (self == teclaSuma) {
+            resultado = sumar(num1, num2);
+            } else if (self == teclaResta) {
+              resultado = restar(num1, num2);
+            } else if (self == teclaMultiplica) {
+              resultado = multiplicar(num1, num2);
+            } else if (self == teclaDivide) {
+              resultado = dividir(num1, num2);
+            }
+          pantalla.innerHTML = resultado;
+          };
+        };
+      }
+    })();
 })();
